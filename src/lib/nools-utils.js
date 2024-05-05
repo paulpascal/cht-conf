@@ -15,12 +15,8 @@ rule GenerateEvents {
   when { c: Contact } then { ${code} }
 }`;
 
-const sessionTokenHeader = environment => {
-  return environment.sessionToken ? { Cookie: `${environment.sessionToken}` } : undefined;
-};
 
 module.exports = {
   addBoilerplateToCode,
-  minify,
-  sessionTokenHeader,
+  minify
 };

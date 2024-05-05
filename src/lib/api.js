@@ -5,7 +5,6 @@ const archivingApi = require('./archiving-api');
 const environment = require('./environment');
 const log = require('./log');
 const url = require('url');
-const nools = require('./nools-utils');
 
 const cache = new Map();
 
@@ -18,9 +17,9 @@ const withCookieSession = (...args) => {
     Object.assign(options, ...args.slice(1));
   }
 
-  const sessionTokenHeader = nools.sessionTokenHeader(environment);
-  if (sessionTokenHeader || options.headers) {
-    options.headers = Object.assign({}, options.headers || {}, sessionTokenHeader);
+  const sessionToken = environment.sessionToken;
+  if (sessionToken || options.headers) {
+    options.headers = Object.assign({}, options.headers || {}, { Cookie: sessionToken });
   }
 
   return options;
