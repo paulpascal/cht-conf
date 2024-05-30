@@ -12,7 +12,8 @@
     "docker-start-couchdb": "npm run docker-stop-couchdb && docker run -d -p 6984:5984 --rm --name cht-conf-couchdb couchdb:2.3.1 && sh test/scripts/wait_for_response_code.sh 6984 200 CouchDB",
     "docker-stop-couchdb": "docker stop cht-conf-couchdb || true",
     "test": "npm run eslint && npm run docker-start-couchdb && npm run clean && mkdir -p build/test && cp -r test/data build/test/data && cd build/test && nyc --reporter=html mocha --forbid-only \"../../test/**/*.spec.js\" && cd ../.. && npm run docker-stop-couchdb",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "test-session-token": "npm run eslint && npm run docker-start-couchdb && npm run clean && mkdir -p build/test && cp -r test/data build/test/data && cd build/test && nyc --reporter=html mocha --grep \"with session cookie\" --forbid-only \"../../test/**/*.spec.js\" && cd ../.. && npm run docker-stop-couchdb"
   },
   "bin": {
     "medic-conf": "src/bin/index.js",
@@ -59,6 +60,7 @@
     "pouchdb-adapter-http": "^7.2.2",
     "pouchdb-core": "^7.2.2",
     "pouchdb-mapreduce": "^7.2.2",
+    "pouchdb-session-authentication": "^1.2.0",
     "properties": "^1.2.1",
     "queue-promise": "^2.2.1",
     "readline-sync": "^1.4.10",
